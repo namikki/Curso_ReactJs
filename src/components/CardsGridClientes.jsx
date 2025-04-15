@@ -26,6 +26,7 @@ const CardsGridClientes = ({ title, items, cols = 3 }) => {
             nome={cliente.nome}
             email={cliente.email}
             telefone={cliente.telefone}
+            foto_url={cliente.foto_url}
           />
         ))}
       </div>
