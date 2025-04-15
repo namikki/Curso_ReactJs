@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HomePage from './HomePage';
 import ProductsPage from './ProductsPage';
-import CreateProductPage from './CreateProductPage'; // Novo componente
+import CreateProductPage from './CreateProductPage';
 
 function App() {
-  // Estado para o carrinho
   const [cartItemCount, setCartItemCount] = useState(0);
 
   // Função para adicionar ao carrinho
   const handleAddToCart = (product) => {
     setCartItemCount(prevCount => prevCount + 1);
-    console.log("Adicionado ao carrinho:", product.title);
+    
+    // Mostrar notificação
+    toast.success(`${product.title} adicionado ao carrinho!`, {
+      icon: '🛒',
+      duration: 2000,
+    });
   };
 
   return (
@@ -37,6 +42,9 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        
+        {/* Componente Toaster para mostrar notificações */}
+        <Toaster position="bottom-right" />
       </div>
     </BrowserRouter>
   );
