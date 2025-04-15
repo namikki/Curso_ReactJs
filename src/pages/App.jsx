@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import HomePage from './HomePage';
 import ProductsPage from './ProductsPage';
 import CreateProductPage from './CreateProductPage';
+import ClientsPage from './ClientsPage';
 
 function App() {
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -13,7 +14,7 @@ function App() {
   // Função para adicionar ao carrinho
   const handleAddToCart = (product) => {
     setCartItemCount(prevCount => prevCount + 1);
-    
+
     // Mostrar notificação
     toast.success(`${product.title} adicionado ao carrinho!`, {
       icon: '🛒',
@@ -39,10 +40,14 @@ function App() {
               path="/produtos/novo"
               element={<CreateProductPage />}
             />
+            <Route
+              path="/clientes"
+              element={<ClientsPage />}
+            />
           </Routes>
         </main>
         <Footer />
-        
+
         {/* Componente Toaster para mostrar notificações */}
         <Toaster position="bottom-right" />
       </div>
