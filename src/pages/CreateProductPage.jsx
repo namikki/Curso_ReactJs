@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import productService from '../services/productService';
+import { toast } from 'react-hot-toast';
 
 const CreateProductPage = () => {
   const navigate = useNavigate();
@@ -21,11 +22,16 @@ const CreateProductPage = () => {
   const createProductMutation = useMutation({
     mutationFn: productService.createProduct,
     onSuccess: () => {
-      alert('Produto criado com sucesso!');
+      toast.success('Produto criado com sucesso!', {
+        duration: 5000,
+        icon: '✅',
+      });
       navigate('/produtos');
     },
     onError: (error) => {
-      alert(`Erro ao criar produto: ${error.message}`);
+      toast.error(`Erro ao criar produto: ${error.message}`, {
+        duration: 5000,
+      });
     }
   });
 
