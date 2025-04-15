@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { NavLink } from 'react-router-dom';
-import CardsGridClientes from '../components/CardsGridClientes';
-import Pagination from '../components/Pagination';
 import clientService from '../services/clientService';
+import Pagination from '../components/Pagination';
 
 const ClientsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const CLIENTS_PER_PAGE = 8;
 
-  const { 
-    data, 
-    isLoading, 
-    isError, 
-    error 
+  const {
+    data,
+    isLoading,
+    isError,
+    error
   } = useQuery({
     queryKey: ['clients', currentPage],
     queryFn: () => clientService.getClients(currentPage, CLIENTS_PER_PAGE),
@@ -62,12 +61,41 @@ const ClientsPage = () => {
         Mostrando {clients.length} de {total} clientes - Página {currentPage} de {totalPages}
       </p>
 
-      <CardsGridClientes
-        items={clients}
-        cols={3}
-      />
+      <div className="table-responsive">
+        <table className="table table-hover align-middle">
+          <thead className="table-light">
+            <tr>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Data de Nascimento</th>
+              <th>Email</th>
+              <th>Telefone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map((client) => (
+              <tr key={client.id}>
+                <td>
+                  <img
+                    src={client.foto_url}
+                    alt={`Foto de ${client.nome}`}
+                    className="rounded-circle"
+                    width="48"
+                    height="48"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </td>
+                <td>{client.nome}</td>
+                <td>{new Date(client.nascimento).toLocaleDateString('pt-BR')}</td>
+                <td>{client.email}</td>
+                <td>{client.telefone}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <Pagination 
+      <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
