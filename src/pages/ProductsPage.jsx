@@ -9,11 +9,11 @@ const ProductsPage = ({ onAddToCart }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Buscar produtos usando React Query
-  const { 
-    data, 
-    isLoading, 
-    isError, 
-    error 
+  const {
+    data,
+    isLoading,
+    isError,
+    error
   } = useQuery({
     queryKey: ['products', currentPage],
     queryFn: () => productService.getProducts(currentPage, 8),
@@ -47,7 +47,13 @@ const ProductsPage = ({ onAddToCart }) => {
     <div>
       <h1>Todos os Produtos</h1>
       <p>Mostrando {products.length} de {total} produtos</p>
-
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1>Todos os Produtos</h1>
+        <NavLink to="/produtos/novo" className="btn btn-success">
+          <i className="bi bi-plus-circle me-2"></i>
+          Adicionar Produto
+        </NavLink>
+      </div>
       {/* Grid de produtos */}
       <CardsGrid
         items={products}
@@ -60,19 +66,19 @@ const ProductsPage = ({ onAddToCart }) => {
         <ul className="pagination justify-content-center mt-4">
           {/* Botão Anterior */}
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-            <button 
-              className="page-link" 
+            <button
+              className="page-link"
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
             >
               Anterior
             </button>
           </li>
-          
+
           {/* Números de página */}
           {[...Array(totalPages).keys()].map(number => (
-            <li 
-              key={number + 1} 
+            <li
+              key={number + 1}
               className={`page-item ${currentPage === number + 1 ? 'active' : ''}`}
             >
               <button
@@ -83,11 +89,11 @@ const ProductsPage = ({ onAddToCart }) => {
               </button>
             </li>
           ))}
-          
+
           {/* Botão Próximo */}
           <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-            <button 
-              className="page-link" 
+            <button
+              className="page-link"
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
