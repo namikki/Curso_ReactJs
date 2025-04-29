@@ -14,7 +14,7 @@ const Header = ({ cartCount = 0 }) => {
               <NavLink className="nav-link" to="/" end>
                 Home
               </NavLink>
-              <NavLink className="nav-link" to="/produtos">
+              <NavLink className="nav-link" to="/produtos" end> 
                 Produtos
               </NavLink>
               <NavLink className="nav-link" to="/produtos/novo">
